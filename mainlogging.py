@@ -13,7 +13,15 @@ import cv2, threading, copy, os
 
 
 IMAGEOUT='images'
-ANNOTATIONOUT='annotations'
+KEYCAPTUREOUT='keycapture'
+
+
+# check if the output dirs exist
+if not os.path.exists(IMAGEOUT):
+	os.mkdir(IMAGEOUT)
+
+if not os.path.exists(KEYCAPTUREOUT):
+	os.mkdir(KEYCAPTUREOUT)
 
 
 commonframe = None

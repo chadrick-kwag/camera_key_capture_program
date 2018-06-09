@@ -5,41 +5,32 @@ This repo holds the programs that are needed to periodically capture the image f
 
 the two key program in this directory is the `keyserver` and a test client program.
 
-# `keyserver` program
+## `keyserver` program
 
-if you change the input device, then please change the source code and recompile to update it.
+The `keyserver` executable can be built from `keyserver.c` file. The below command works in linux environment.
+```
+$ gcc -pthread -o keyserver keyserver.c
+```
 
-## how to check the device file for the input
+### Usage
+Once the executable has been built, it is executed with the following cmd format
+```
+$ ./keyserver <portnum> <inputeventnumber>
+```
+- make sure that the portnum used here is a fresh one
+- the `inputeventnumber` is the event number of the keyboard device that the user will use.
+
+## how to check the device input event number for the input
 
 ```
 $ cat /proc/bus/input/devices
 ```
 
-for my dell laptop alone: use 
-francium deck keyboard: use `event6`
-
-here is an example command for compiling.
-```
-$ gcc -pthread -o keyserver keyserver.c
-```
-
-when executing, please input which port to use as well. here is an example.
-```
-$ ./keyserver 9898
-```
-
-# `test client` program
-this is literally a test client program written in python which serves as an example to anyone who wishes to use it in their own code.
+From the list of outputs, locate the keyboard device that you are using.
 
 
-# `mainlog2.py`
-this is the latest prototype for data gathering code.
+## `mainlogging.py` program
+This python code is the main logging program, which gathers both image data(from webcam) and keyboard input(from `keyserver` program) and pairs them and then stores it.
+The image data will be saved in `images` directory and the captured key data will be saved in `keycapture` directory.
 
-# `keyserver2` code
-upgraded version from `keyserver`. Now it can specify the port number and eventnumber from commandline.
-```
-$ ./keyserver2 <portnumber> <eventnumber>
-```
-
-the port number used by the loggin program is 9898.
-
+However, it is still in development and currently only the captured image and key will only be printed.
